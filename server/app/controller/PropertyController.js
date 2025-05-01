@@ -1,8 +1,7 @@
- 
-const { title } = require('process')
 const Admin = require('../model/admin')
 const Property = require('../model/property')
 const path=require('path')
+const fs=require('fs')
 
 class PropertyController{
     async propertyView(req,res) {
@@ -26,7 +25,7 @@ class PropertyController{
             const email=req.cookies.email
             const adminData=await Admin.findOne({email})
 
-            const{title,description,propertyType,roomType,location,amenities,capacity:{guests,bedrooms,beds,bathrooms},price,rules}=req.body
+            const{title,category,description,propertyType,roomType,location,amenities,capacity:{guests,bedrooms,beds,bathrooms},price,rules}=req.body
         // Convert checkbox values from "on" to boolean
         const processedRules = {
             petsAllowed: rules?.petsAllowed === 'on',
@@ -35,7 +34,7 @@ class PropertyController{
             childrenAllowed: rules?.childrenAllowed === 'on'
         };
         
-        const data=new Property({title,description,propertyType,roomType,location,amenities,capacity:{guests,bedrooms,beds,bathrooms},price,rules:processedRules,host:adminData._id})
+        const data=new Property({title,category,description,propertyType,roomType,location,amenities,capacity:{guests,bedrooms,beds,bathrooms},price,rules:processedRules,host:adminData._id})
               
         // Handle file uploads
               if (req.file) {
@@ -99,6 +98,7 @@ class PropertyController{
             const id=req.params.id
             // console.log(id)
             const data=await Property.findByIdAndDelete(id)
+          
             // console.log(data)
             if(data){
                 res.redirect('/inventoryTable')

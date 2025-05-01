@@ -24,14 +24,14 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
-            / padding: 20px; /
+            /* padding: 20px;  */
             color: #333;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            / box-shadow: 0 0 10px rgba(0,0,0,0.1); /
+            /* box-shadow: 0 0 10px rgba(0,0,0,0.1); */
             border-radius: 5px;
         }
         h1 {
@@ -155,7 +155,24 @@
                             <label for="description" class="lable-heading">Description</label>
                             <textarea id="description" name="description"></textarea>
                         </div>
-            
+                         <!-- category  -->
+                         <div class="form-group">
+                            <label for="category" class="lable-heading">Category</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select category type</option>
+                                <option value="Amazing views">Amazing views</option>
+                                <option value="Castles">Castles</option>
+                                <option value="Beachfronts">Beachfronts</option>
+                                <option value="Lake">Lake</option>
+                                <option value="New">New</option>
+                                <option value="Mansions">Mansions</option>
+                                <option value="OMG!">OMG!</option>
+                                <option value="Rooms">Rooms</option>
+                                <option value="Top cities">Top cities</option>
+                                <option value="Top of the world">Top of the world</option>
+                            </select>
+                        </div>
+                        
                         <!-- Property Type -->
                         <div class="form-group">
                             <label for="propertyType" class="lable-heading">Property Type*</label>
@@ -172,7 +189,6 @@
                                 <option value="Tree House">Tree House</option>
                             </select>
                         </div>
-            
                         <div class="form-group">
                             <label for="roomType" class="lable-heading">Room Type*</label>
                             <select id="roomType" name="roomType" required>

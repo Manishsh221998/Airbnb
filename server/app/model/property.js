@@ -15,9 +15,14 @@ const propertySchema = new mongoose.Schema({
     ref: 'admin',
     required: true
   },
+  category: {
+    type: String,
+    enum: ['Amazing views', 'Castles', 'Beachfronts', 'Lake', 'New', 'Mansions', 'OMG!','Rooms','Top cities','Top of the world'],
+    required: true
+  },
   propertyType: {
     type: String,
-    enum: ['Apartment', 'house', 'villa', 'cabin', 'hotel', 'guesthouse', 'unique','Tree House'],
+    enum: ['Apartment', 'House', 'Villa', 'Cabin', 'Hotel', 'Guesthouse', 'Unique','Tree House'],
     required: true
   },
   roomType: {
