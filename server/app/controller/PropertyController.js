@@ -62,6 +62,7 @@ class PropertyController{
 
     async propertyTableView(req,res) {
         try {
+            
             const data=await Property.find()
              res.render('inventoryTable',{
                 title:'Inventory Table',
@@ -98,9 +99,14 @@ class PropertyController{
             const id=req.params.id
             // console.log(id)
             const data=await Property.findByIdAndDelete(id)
-          
+          if(data && data.images){
+            data.images.forEach(imagePath=>{
+                fs.unlinkSync(imagePath)
+            })
+          }
             // console.log(data)
             if(data){
+                console.log('Propert row deleted successfully')
                 res.redirect('/inventoryTable')
             }
         } catch (error) {

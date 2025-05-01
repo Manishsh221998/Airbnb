@@ -30,6 +30,9 @@
         .search-container {
             margin-bottom: 20px;
         }
+        .action-buttons{
+            text-align: center;
+        }
         .action-buttons .btn {
             margin-right: 5px;
         }
@@ -106,6 +109,7 @@
                                     </tr>
                                 </thead>
                                 <tbody >
+                                    <% if(data.length>0){%>
                                     <% data.forEach((property,idx) => { %>
                                     <tr>
                                         <td class="fw-bold text-center" style="color: rgb(0, 102, 111);"><%= idx+1 %></td>
@@ -123,7 +127,7 @@
                                                 <i class="fas fa-eye"></i>
                                             </button>
                                         </a>
-                                        <a href="/inventoryTable/edit/<%=property._id%>" style="text-decoration:none;list-style:none;">  <button class="btn btn-sm btn-light text-success view-btn" title="Edit">
+                                        <a href="/inventoryTable/edit/<%=property._id%>" style="text-decoration:none;list-style:none;">  <button class="btn btn-sm btn-light text-dark view-btn" title="Edit">
                                            <i class="fas fa-edit"></i>
                                         </button>
                                     </a> 
@@ -135,7 +139,12 @@
 
                                         </td>
                                     </tr>
-                                    <% }) %>
+                                    <% }) %> 
+                                    <%}else{%>
+                                        <tr>
+                                            <td colspan="11" class="text-center text-secondary" >No Data Found....</td>
+                                        </tr>                                    
+                                         <%}%>
                                     <!-- Additional rows would be rendered here in a loop -->
                                 </tbody>
                             </table>

@@ -5,8 +5,7 @@ const { forgotPassword } = require("../controller/Pages/authentication/forgotPas
 const forgotPassword_Controller = require("../controller/Pages/authentication/forgotPassword_Controller")
 const errorController = require("../controller/Pages/error/errorController")
 const blankPageController = require("../controller/Pages/blankPage/blankPageController")
-const chartContoller = require("../controller/chartContoller")
-const tableController = require("../controller/tableController")
+ const tableController = require("../controller/tableController")
 const AdminImage = require("../helper/AdminImage")
 const AdminCheck = require("../middleware/AdminCheck")
  const PropertyController = require("../controller/PropertyController")
@@ -39,8 +38,6 @@ router.get('/inventoryTable/delete/:id',PropertyController.delete)
 router.get('/error',errorController.error)
 //blank page
 router.get('/blank',blankPageController.blankPage)
-//chart
-router.get('/chart',chartContoller.chart)
 //table
 router.get('/table',tableController.table)
 
