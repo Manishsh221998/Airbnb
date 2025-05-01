@@ -59,22 +59,32 @@ class PropertyController{
             console.log("Property Create error",error)
         }
     }
-
-    async propertyTableView(req,res) {
+//added pagination to the property list
+    async propertyTableView(req, res) {
         try {
-            
-            const data=await Property.find()
-             res.render('inventoryTable',{
-                title:'Inventory Table',
-             role:req.cookies.adminRole,
-             title:req.cookies.adminName,
-             image:req.cookies.adminImg,
-             data:data
-            })
+            const page = parseInt(req.query.page) || 1;
+            const limit = 10;
+            const skip = (page - 1) * limit;
+    
+            const total = await Property.countDocuments();
+            const data = await Property.find().skip(skip).limit(limit).sort({ createdAt: -1 });
+    
+            const totalPages = Math.ceil(total / limit);
+    
+            res.render('inventoryTable', {
+                title: 'Inventory Table',
+                role: req.cookies.adminRole,
+                title: req.cookies.adminName,
+                image: req.cookies.adminImg,
+                data,
+                currentPage: page,
+                totalPages
+            });
         } catch (error) {
-            console.log("Property view error",error)
+            console.log("Property view error", error);
         }
     }
+    
     async edit(req,res) {
         try {
             const id=req.params.id
