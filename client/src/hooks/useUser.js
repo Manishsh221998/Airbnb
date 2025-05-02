@@ -45,6 +45,15 @@ export const useProfile = (options = {}) => {
   });
 };
 
+// Send Reset Password Link
+export const useSendResetPasswordLink = (options) => {
+  return useMutation({
+    mutationFn: sendResetPasswordLink,
+    ...options,
+  });
+};
+
+
 // Update Password
 export const useUpdatePassword = (options) => {
   return useMutation({

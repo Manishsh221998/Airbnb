@@ -9,10 +9,7 @@ const Routing = () => {
     <Router> 
 <AirbnbHeader/>
         <Routes>
-            {/* <Route path='/regist' element={<RegisterModal/>} />
-            <Route path='/otp-verify' element={<OTPVerifyModal/>} />
-            <Route path='/login' element={<LoginModal/>} />
-            <Route/> */}
+         
         </Routes>
         <ModalController/>
 

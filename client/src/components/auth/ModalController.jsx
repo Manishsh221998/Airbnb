@@ -2,7 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import RegisterModal from "./Register";
 import LoginModal from "./Login";
 import OTPVerifyModal from "./OTPVerify";
-
+import ResetPasswordModal from "./ResetPassword"; // New
+import UpdatePasswordModal from "./UpdatePassword"; // New
 
 const ModalController = () => {
   const location = useLocation();
@@ -14,9 +15,22 @@ const ModalController = () => {
 
   return (
     <>
-      {location.pathname === "/regist" && <RegisterModal open={true} onClose={handleClose} />}
-      {location.pathname === "/otp-verify" && <OTPVerifyModal open={true} onClose={handleClose} />}
-      {location.pathname === "/login" && <LoginModal open={true} onClose={handleClose} />}
+      {location.pathname === "/regist" && (
+        <RegisterModal open={true} onClose={handleClose} />
+      )}
+      {location.pathname === "/otp-verify" && (
+        <OTPVerifyModal open={true} onClose={handleClose} />
+      )}
+      {location.pathname === "/login" && (
+        <LoginModal open={true} onClose={handleClose} />
+      )}
+      {location.pathname === "/reset-password-link" && (
+        <ResetPasswordModal open={true} onClose={handleClose} />
+      )}
+      {/* Dynamic route for update password */}
+      {location.pathname.startsWith("/reset-password/") && (
+        <UpdatePasswordModal open={true} onClose={handleClose} />
+      )}
     </>
   );
 };

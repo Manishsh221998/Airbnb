@@ -29,6 +29,7 @@ const RegisterModal = ({ open, onClose }) => {
     error,
   } = useRegister({
     onSuccess: () => {
+      navigate("/otp-verify");
     },
   });
   
@@ -44,7 +45,7 @@ const RegisterModal = ({ open, onClose }) => {
     }
     
     registerUser(formData);
-    navigate("/otp-verify");
+
   };
 
   return (
