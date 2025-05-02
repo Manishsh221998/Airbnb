@@ -1,18 +1,24 @@
 import React from "react";
-import { useForm } from "react-hook-form";
 import {
-  TextField,
-  Button,
-  Typography,
   Box,
+  TextField,
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+  Divider,
   CircularProgress,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { useForm } from "react-hook-form";
 import { useLogin } from "../../hooks/useUser";
-import { useNavigate } from "react-router-dom"; // ✅ Import navigate
+import { useNavigate } from "react-router-dom";
 
-export const Login = () => {
+const LoginModal = ({ open, onClose }) => {
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate(); // ✅ Use navigate hook
+  const navigate = useNavigate();
 
   const {
     mutate: loginUser,
@@ -22,7 +28,7 @@ export const Login = () => {
     error,
   } = useLogin({
     onSuccess: () => {
-      navigate("/dashboard"); // ✅ Redirect to dashboard on success
+      navigate("/dashboard");
     },
   });
 
@@ -32,47 +38,82 @@ export const Login = () => {
   };
 
   return (
-    <Box maxWidth={400} mx="auto" mt={6}>
-      <Typography variant="h5" mb={2}>
-        Login to Your Account
-      </Typography>
-
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <TextField
-          label="Email"
-          fullWidth
-          margin="normal"
-          {...register("email", { required: true })}
-        />
-        <TextField
-          label="Password"
-          type="password"
-          fullWidth
-          margin="normal"
-          {...register("password", { required: true })}
-        />
-
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 2 }}
-          disabled={isPending}
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="xs"
+      fullWidth
+      PaperProps={{ sx: { borderRadius: 3, p: 2 } }}
+    >
+      <DialogTitle sx={{ px: 3, pt: 3 }}>
+        <Typography variant="h6" fontWeight="bold">
+          Login to Your Account
+        </Typography>
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 16,
+            top: 16,
+            color: "grey.500",
+          }}
         >
-          {isPending ? <CircularProgress size={24} /> : "Login"}
-        </Button>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
 
-        {isSuccess && (
-          <Typography color="success.main" mt={2}>
-            Logged in successfully!
-          </Typography>
-        )}
-        {isError && (
-          <Typography color="error.main" mt={2}>
-            {error?.response?.data?.message || "Invalid credentials."}
-          </Typography>
-        )}
-      </form>
-    </Box>
+      <Divider sx={{ mx: 3, mb: 2 }} />
+
+      <DialogContent sx={{ px: 3 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          display="flex"
+          flexDirection="column"
+          gap={2}
+        >
+          <TextField
+            label="Email"
+            fullWidth
+            {...register("email", { required: true })}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            fullWidth
+            {...register("password", { required: true })}
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{
+              mt: 2,
+              backgroundColor: "brown",
+              "&:hover": { backgroundColor: "#5d4037" },
+            }}
+            disabled={isPending}
+          >
+            {isPending ? <CircularProgress size={24} color="inherit" /> : "Login"}
+          </Button>
+
+          {isSuccess && (
+            <Typography color="success.main" mt={2}>
+              Logged in successfully!
+            </Typography>
+          )}
+          {isError && (
+            <Typography color="error.main" mt={2}>
+              {error?.response?.data?.message || "Invalid credentials."}
+            </Typography>
+          )}
+        </Box>
+      </DialogContent>
+      <a href="/regist">create the account</a>
+    </Dialog>
   );
 };
+
+export default LoginModal;

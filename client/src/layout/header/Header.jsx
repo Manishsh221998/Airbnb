@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 import {
   AppBar,
   Box,
@@ -24,25 +24,28 @@ import {
   Popover,
   ClickAwayListener,
   Container,
-} from "@mui/material"
-import { styled, useTheme } from "@mui/material/styles"
-import SearchIcon from "@mui/icons-material/Search"
-import MenuIcon from "@mui/icons-material/Menu"
-import LanguageIcon from "@mui/icons-material/Language"
-import AccountCircleIcon from "@mui/icons-material/AccountCircle"
-import TuneIcon from "@mui/icons-material/Tune"
-import BeachAccessIcon from "@mui/icons-material/BeachAccess"
-import HouseIcon from "@mui/icons-material/House"
-import ApartmentIcon from "@mui/icons-material/Apartment"
-import PoolIcon from "@mui/icons-material/Pool"
-import WaterIcon from "@mui/icons-material/Water"
-import LandscapeIcon from "@mui/icons-material/Landscape"
-import BeachAccessOutlinedIcon from "@mui/icons-material/BeachAccessOutlined"
-import AgricultureIcon from "@mui/icons-material/Agriculture"
-import CastleIcon from "@mui/icons-material/Castle"
-import PublicIcon from "@mui/icons-material/Public"
-import ParkIcon from "@mui/icons-material/Park"
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
+} from "@mui/material";
+import { styled, useTheme } from "@mui/material/styles";
+import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
+import LanguageIcon from "@mui/icons-material/Language";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import TuneIcon from "@mui/icons-material/Tune";
+import BeachAccessIcon from "@mui/icons-material/BeachAccess";
+import HouseIcon from "@mui/icons-material/House";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import PoolIcon from "@mui/icons-material/Pool";
+import WaterIcon from "@mui/icons-material/Water";
+import LandscapeIcon from "@mui/icons-material/Landscape";
+import BeachAccessOutlinedIcon from "@mui/icons-material/BeachAccessOutlined";
+import AgricultureIcon from "@mui/icons-material/Agriculture";
+import CastleIcon from "@mui/icons-material/Castle";
+import PublicIcon from "@mui/icons-material/Public";
+import ParkIcon from "@mui/icons-material/Park";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { Link } from "react-router-dom";
+import RegisterModal from "../../components/auth/Register";
+import LoginModal from "../../components/auth/Login";
 
 // Logo component
 const Logo = styled("div")(({ theme }) => ({
@@ -52,7 +55,7 @@ const Logo = styled("div")(({ theme }) => ({
   fontWeight: "bold",
   fontSize: "24px",
   cursor: "pointer",
-}))
+}));
 
 // Search bar styling
 const Search = styled(Paper)(({ theme }) => ({
@@ -67,7 +70,7 @@ const Search = styled(Paper)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     display: "none",
   },
-}))
+}));
 
 const SearchButton = styled(Button)(({ theme }) => ({
   backgroundColor: "#FF385C",
@@ -79,12 +82,12 @@ const SearchButton = styled(Button)(({ theme }) => ({
   "&:hover": {
     backgroundColor: "#E61E4D",
   },
-}))
+}));
 
 const SearchDivider = styled(Divider)(({ theme }) => ({
   height: "32px",
   margin: theme.spacing(1),
-}))
+}));
 
 const CategoryTab = styled(Tab)(({ theme }) => ({
   minWidth: "auto",
@@ -96,7 +99,7 @@ const CategoryTab = styled(Tab)(({ theme }) => ({
     color: "#000",
     fontWeight: "bold",
   },
-}))
+}));
 
 const MobileSearchButton = styled(Button)(({ theme }) => ({
   display: "none",
@@ -111,41 +114,43 @@ const MobileSearchButton = styled(Button)(({ theme }) => ({
     color: "#222",
     width: "100%",
   },
-}))
+}));
 
 const AirbnbHeader = () => {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"))
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"))
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
 
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [categoryValue, setCategoryValue] = useState(0)
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [searchExpanded, setSearchExpanded] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [categoryValue, setCategoryValue] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [searchExpanded, setSearchExpanded] = useState(false);
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen)
-  }
+    setMobileOpen(!mobileOpen);
+  };
 
   const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleMenuClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   const handleCategoryChange = (event, newValue) => {
-    setCategoryValue(newValue)
-  }
+    setCategoryValue(newValue);
+  };
 
   const handleSearchClick = () => {
-    setSearchExpanded(true)
-  }
+    setSearchExpanded(true);
+  };
 
   const handleSearchClose = () => {
-    setSearchExpanded(false)
-  }
+    setSearchExpanded(false);
+  };
 
   const categories = [
     { label: "Tropical", icon: <BeachAccessIcon fontSize="small" /> },
@@ -159,7 +164,7 @@ const AirbnbHeader = () => {
     { label: "Castles", icon: <CastleIcon fontSize="small" /> },
     { label: "Top of the world", icon: <PublicIcon fontSize="small" /> },
     { label: "Treehouses", icon: <ParkIcon fontSize="small" /> },
-  ]
+  ];
 
   const drawer = (
     <Box sx={{ width: 250 }}>
@@ -167,9 +172,15 @@ const AirbnbHeader = () => {
         <ListItem>
           <ListItemText primary="Log in" />
         </ListItem>
-        <ListItem>
+        <ListItem
+          button
+          component={Link}
+          to="/regist"
+          onClick={handleDrawerToggle}
+        >
           <ListItemText primary="Sign up" />
         </ListItem>
+
         <Divider />
         <ListItem>
           <ListItemText primary="Airbnb your home" />
@@ -182,7 +193,7 @@ const AirbnbHeader = () => {
         </ListItem>
       </List>
     </Box>
-  )
+  );
 
   const expandedSearch = (
     <Popover
@@ -199,7 +210,10 @@ const AirbnbHeader = () => {
         <Paper sx={{ p: 2, width: "80vw", maxWidth: "800px" }}>
           <Typography variant="h6">Search</Typography>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
-            <Paper elevation={0} sx={{ p: 2, border: "1px solid #ddd", borderRadius: 2 }}>
+            <Paper
+              elevation={0}
+              sx={{ p: 2, border: "1px solid #ddd", borderRadius: 2 }}
+            >
               <Typography variant="subtitle2" fontWeight="bold">
                 Where
               </Typography>
@@ -207,13 +221,29 @@ const AirbnbHeader = () => {
             </Paper>
 
             <Box sx={{ display: "flex", gap: 2 }}>
-              <Paper elevation={0} sx={{ p: 2, border: "1px solid #ddd", borderRadius: 2, flex: 1 }}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  border: "1px solid #ddd",
+                  borderRadius: 2,
+                  flex: 1,
+                }}
+              >
                 <Typography variant="subtitle2" fontWeight="bold">
                   Check in
                 </Typography>
                 <InputBase placeholder="Add dates" fullWidth />
               </Paper>
-              <Paper elevation={0} sx={{ p: 2, border: "1px solid #ddd", borderRadius: 2, flex: 1 }}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  border: "1px solid #ddd",
+                  borderRadius: 2,
+                  flex: 1,
+                }}
+              >
                 <Typography variant="subtitle2" fontWeight="bold">
                   Check out
                 </Typography>
@@ -222,7 +252,15 @@ const AirbnbHeader = () => {
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Paper elevation={0} sx={{ p: 2, border: "1px solid #ddd", borderRadius: 2, flex: 1 }}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  border: "1px solid #ddd",
+                  borderRadius: 2,
+                  flex: 1,
+                }}
+              >
                 <Typography variant="subtitle2" fontWeight="bold">
                   Who
                 </Typography>
@@ -236,170 +274,257 @@ const AirbnbHeader = () => {
         </Paper>
       </ClickAwayListener>
     </Popover>
-  )
+  );
 
   return (
- 
-    <Box sx={{ flexGrow: 1, mb:'170px'}}>
-      <AppBar position="fixed" elevation={0} sx={{ borderBottom: "1px solid #eee",bgcolor:'white'}}>
-<Container maxWidth='xl'>
-        <Toolbar>
-          {/* Logo */}
-          <Logo>
-            <svg width="30" height="32" fill="currentcolor" style={{ display: "block" }}>
-              <path d="M29.24 22.68c-.16-.39-.31-.8-.47-1.15l-.74-1.67-.03-.03c-2.2-4.8-4.55-9.68-7.04-14.48l-.1-.2c-.25-.47-.5-.99-.76-1.47-.32-.57-.63-1.18-1.14-1.76a5.3 5.3 0 00-8.2 0c-.47.58-.82 1.19-1.14 1.76-.25.52-.5 1.03-.76 1.5l-.1.2c-2.45 4.8-4.84 9.68-7.04 14.48l-.06.06c-.22.52-.48 1.06-.73 1.64-.16.35-.32.73-.48 1.15a6.8 6.8 0 007.2 9.23 8.38 8.38 0 003.18-1.1c1.3-.73 2.55-1.79 3.95-3.32 1.4 1.53 2.68 2.59 3.95 3.33A8.38 8.38 0 0022.75 32a6.79 6.79 0 006.75-5.83 5.94 5.94 0 00-.26-3.5zm-14.36 1.66c-1.72-2.2-2.84-4.22-3.22-5.95a5.2 5.2 0 01-.1-1.96c.07-.51.26-.96.52-1.34.6-.87 1.65-1.41 2.8-1.41a3.3 3.3 0 012.8 1.4c.26.4.45.84.51 1.35.1.58.06 1.25-.1 1.96-.38 1.7-1.5 3.74-3.21 5.95zm12.74 1.48a4.76 4.76 0 01-2.9 3.75c-.76.32-1.6.41-2.42.32-.8-.1-1.6-.36-2.42-.84a15.64 15.64 0 01-3.63-3.1c2.1-2.6 3.37-4.97 3.85-7.08.23-1 .26-1.9.16-2.73a5.53 5.53 0 00-.86-2.2 5.36 5.36 0 00-4.49-2.28c-1.85 0-3.5.86-4.5 2.27a5.18 5.18 0 00-.85 2.21c-.13.84-.1 1.77.16 2.73.48 2.11 1.78 4.51 3.85 7.1a14.33 14.33 0 01-3.63 3.12c-.83.48-1.62.73-2.42.83a4.76 4.76 0 01-5.32-4.07c-.1-.8-.03-1.6.29-2.5.1-.32.25-.64.41-1.02.22-.52.48-1.06.73-1.6l.04-.07c2.16-4.77 4.52-9.64 6.97-14.41l.1-.2c.25-.48.5-.99.76-1.47.26-.51.54-1 .9-1.4a3.32 3.32 0 015.09 0c.35.4.64.89.9 1.4.25.48.5 1 .76 1.47l.1.2c2.44 4.77 4.8 9.64 7 14.41l.03.03c.26.52.48 1.1.73 1.6.16.39.32.7.42 1.03.19.9.29 1.7.19 2.5z"></path>
-            </svg>
-            <Typography variant="h6" sx={{ ml: 1, display: { xs: "none", sm: "block" } }}>
-              airbnb
-            </Typography>
-          </Logo>
-
-          {/* Desktop Navigation */}
-          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" , pt:'15px'}}>
-            {!isMobile && (
-              <Search>
-                <Box sx={{ display: "flex", alignItems: "center", px: 2, py: 1 }}>
-                  <Box sx={{ px: 1 }}>
-                    <Typography variant="body2" fontWeight="bold">
-                      Where
-                    </Typography>
-                    <InputBase placeholder="Search destinations" />
-                  </Box>
-                  <SearchDivider orientation="vertical" />
-                  <Box sx={{ px: 1 }}>
-                    <Typography variant="body2" fontWeight="bold">
-                      Check in
-                    </Typography>
-                    <InputBase placeholder="Add dates" />
-                  </Box>
-                  <SearchDivider orientation="vertical" />
-                  <Box sx={{ px: 1 }}>
-                    <Typography variant="body2" fontWeight="bold">
-                      Check out
-                    </Typography>
-                    <InputBase placeholder="Add dates" />
-                  </Box>
-                  <SearchDivider orientation="vertical" />
-                  <Box sx={{ px: 1 }}>
-                    <Typography variant="body2" fontWeight="bold">
-                      Who
-                    </Typography>
-                    <InputBase placeholder="Add guests" />
-                  </Box>
-                  <SearchButton>
-                    <SearchIcon />
-                  </SearchButton>
-                </Box>
-              </Search>
-            )}
-          </Box>
-
-          {/* Mobile Search Button */}
-          {isMobile && (
-            <MobileSearchButton startIcon={<SearchIcon />} onClick={handleSearchClick} fullWidth sx={{ mx: 2 }}>
-              <Box sx={{ textAlign: "left", ml: 1 }}>
-                <Typography variant="body2" fontWeight="bold">
-                  Anywhere
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  Any week · Add guests
-                </Typography>
-              </Box>
-            </MobileSearchButton>
-          )}
- 
-          {/* Right side buttons */}
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            {!isSmall && (
-              <Button
-                 sx={{
-                  borderRadius: "40px",
-                  textTransform: "none",
-                  fontWeight: "medium",
-                  mr: 1,
-
-                  color:'black'
-                }}
+    <Box sx={{ flexGrow: 1, mb: "170px" }}>
+      <AppBar
+        position="fixed"
+        elevation={0}
+        sx={{ borderBottom: "1px solid #eee", bgcolor: "white" }}
+      >
+        <Container maxWidth="xl">
+          <Toolbar>
+            {/* Logo */}
+            <Logo>
+              <svg
+                width="30"
+                height="32"
+                fill="currentcolor"
+                style={{ display: "block" }}
               >
-                Airbnb your home
-              </Button>
+                <path d="M29.24 22.68c-.16-.39-.31-.8-.47-1.15l-.74-1.67-.03-.03c-2.2-4.8-4.55-9.68-7.04-14.48l-.1-.2c-.25-.47-.5-.99-.76-1.47-.32-.57-.63-1.18-1.14-1.76a5.3 5.3 0 00-8.2 0c-.47.58-.82 1.19-1.14 1.76-.25.52-.5 1.03-.76 1.5l-.1.2c-2.45 4.8-4.84 9.68-7.04 14.48l-.06.06c-.22.52-.48 1.06-.73 1.64-.16.35-.32.73-.48 1.15a6.8 6.8 0 007.2 9.23 8.38 8.38 0 003.18-1.1c1.3-.73 2.55-1.79 3.95-3.32 1.4 1.53 2.68 2.59 3.95 3.33A8.38 8.38 0 0022.75 32a6.79 6.79 0 006.75-5.83 5.94 5.94 0 00-.26-3.5zm-14.36 1.66c-1.72-2.2-2.84-4.22-3.22-5.95a5.2 5.2 0 01-.1-1.96c.07-.51.26-.96.52-1.34.6-.87 1.65-1.41 2.8-1.41a3.3 3.3 0 012.8 1.4c.26.4.45.84.51 1.35.1.58.06 1.25-.1 1.96-.38 1.7-1.5 3.74-3.21 5.95zm12.74 1.48a4.76 4.76 0 01-2.9 3.75c-.76.32-1.6.41-2.42.32-.8-.1-1.6-.36-2.42-.84a15.64 15.64 0 01-3.63-3.1c2.1-2.6 3.37-4.97 3.85-7.08.23-1 .26-1.9.16-2.73a5.53 5.53 0 00-.86-2.2 5.36 5.36 0 00-4.49-2.28c-1.85 0-3.5.86-4.5 2.27a5.18 5.18 0 00-.85 2.21c-.13.84-.1 1.77.16 2.73.48 2.11 1.78 4.51 3.85 7.1a14.33 14.33 0 01-3.63 3.12c-.83.48-1.62.73-2.42.83a4.76 4.76 0 01-5.32-4.07c-.1-.8-.03-1.6.29-2.5.1-.32.25-.64.41-1.02.22-.52.48-1.06.73-1.6l.04-.07c2.16-4.77 4.52-9.64 6.97-14.41l.1-.2c.25-.48.5-.99.76-1.47.26-.51.54-1 .9-1.4a3.32 3.32 0 015.09 0c.35.4.64.89.9 1.4.25.48.5 1 .76 1.47l.1.2c2.44 4.77 4.8 9.64 7 14.41l.03.03c.26.52.48 1.1.73 1.6.16.39.32.7.42 1.03.19.9.29 1.7.19 2.5z"></path>
+              </svg>
+              <Typography
+                variant="h6"
+                sx={{ ml: 1, display: { xs: "none", sm: "block" } }}
+              >
+                airbnb
+              </Typography>
+            </Logo>
+
+            {/* Desktop Navigation */}
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                justifyContent: "center",
+                pt: "15px",
+              }}
+            >
+              {!isMobile && (
+                <Search>
+                  <Box
+                    sx={{ display: "flex", alignItems: "center", px: 2, py: 1 }}
+                  >
+                    <Box sx={{ px: 1 }}>
+                      <Typography variant="body2" fontWeight="bold">
+                        Where
+                      </Typography>
+                      <InputBase placeholder="Search destinations" />
+                    </Box>
+                    <SearchDivider orientation="vertical" />
+                    <Box sx={{ px: 1 }}>
+                      <Typography variant="body2" fontWeight="bold">
+                        Check in
+                      </Typography>
+                      <InputBase placeholder="Add dates" />
+                    </Box>
+                    <SearchDivider orientation="vertical" />
+                    <Box sx={{ px: 1 }}>
+                      <Typography variant="body2" fontWeight="bold">
+                        Check out
+                      </Typography>
+                      <InputBase placeholder="Add dates" />
+                    </Box>
+                    <SearchDivider orientation="vertical" />
+                    <Box sx={{ px: 1 }}>
+                      <Typography variant="body2" fontWeight="bold">
+                        Who
+                      </Typography>
+                      <InputBase placeholder="Add guests" />
+                    </Box>
+                    <SearchButton>
+                      <SearchIcon />
+                    </SearchButton>
+                  </Box>
+                </Search>
+              )}
+            </Box>
+
+            {/* Mobile Search Button */}
+            {isMobile && (
+              <MobileSearchButton
+                startIcon={<SearchIcon />}
+                onClick={handleSearchClick}
+                fullWidth
+                sx={{ mx: 2 }}
+              >
+                <Box sx={{ textAlign: "left", ml: 1 }}>
+                  <Typography variant="body2" fontWeight="bold">
+                    Anywhere
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    Any week · Add guests
+                  </Typography>
+                </Box>
+              </MobileSearchButton>
             )}
 
-            <IconButton sx={{ mr: 1 ,color:'gray' }}>
-              <LanguageIcon fontSize="small" />
-            </IconButton>
+            {/* Right side buttons */}
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              {!isSmall && (
+                <Button
+                  sx={{
+                    borderRadius: "40px",
+                    textTransform: "none",
+                    fontWeight: "medium",
+                    mr: 1,
 
-            <Button
-              onClick={handleMenuOpen}
-              sx={{
-                border: "1px solid #ddd",
-                borderRadius: "40px",
-                padding: "5px 5px 5px 12px",
-                minWidth: "auto",
-              }}
-            >
-              <MenuIcon fontSize="small" sx={{ mr: 1 }} />
-              <Avatar sx={{ width: 30, height: 30, bgcolor: "#717171" }}>
-                <AccountCircleIcon fontSize="small" />
-              </Avatar>
-            </Button>
+                    color: "black",
+                  }}
+                >
+                  Airbnb your home
+                </Button>
+              )}
 
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              PaperProps={{
-                elevation: 3,
-                sx: { mt: 1.5, width: 220, borderRadius: 2 },
-              }}
-            >
-              <MenuItem onClick={handleMenuClose}>Sign up</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Log in</MenuItem>
-              <Divider />
-              <MenuItem onClick={handleMenuClose}>Airbnb your home</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Host an experience</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Help Centre</MenuItem>
-            </Menu>
-          </Box>
+              <IconButton sx={{ mr: 1, color: "gray" }}>
+                <LanguageIcon fontSize="small" />
+              </IconButton>
 
-       
-         </Toolbar>
-
-        {/* Categories */}
-        <Box sx={{ borderBottom: 1, borderColor: "divider", px: 2 }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Tabs
-              value={categoryValue}
-              onChange={handleCategoryChange}
-              variant="scrollable"
-              scrollButtons="auto"
-              sx={{
-                "& .MuiTabs-indicator": {
-                  backgroundColor: "#000",
-                  height: "2px",
-                },
-                flex: 1,
-              }}
-            >
-              {categories.map((category, index) => (
-                <CategoryTab key={index} icon={category.icon} label={category.label} iconPosition="top" />
-              ))}
-            </Tabs>
-            <Box sx={{ display: "flex", alignItems: "center", ml: 2, borderLeft: "1px solid #ddd", pl: 2 }}>
               <Button
-                startIcon={<TuneIcon />}
+                onClick={handleMenuOpen}
                 sx={{
                   border: "1px solid #ddd",
-                  borderRadius: "12px",
-                  textTransform: "none",
-                  px: 2,
+                  borderRadius: "40px",
+                  padding: "5px 5px 5px 12px",
+                  minWidth: "auto",
                 }}
               >
-                Filters
+                <MenuIcon fontSize="small" sx={{ mr: 1 }} />
+                <Avatar sx={{ width: 30, height: 30, bgcolor: "#717171" }}>
+                  <AccountCircleIcon fontSize="small" />
+                </Avatar>
               </Button>
+
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                PaperProps={{
+                  elevation: 3,
+                  sx: { mt: 1.5, width: 220, borderRadius: 2 },
+                }}
+              >
+                <Button
+                  component={Link}
+                  to="/regist"
+                  onClick={() => setOpen(true)}
+                  sx={{
+                    width: "100px", // Adjust to your desired size
+                    marginLeft: "3%",
+                    backgroundColor: "brown",
+                    color: "white",
+                    paddingY: 0.5,
+                    // fontWeight: "bold",
+                    "&:hover": { backgroundColor: "#5d4037" },
+                  }}
+                >
+                  Sign up
+                </Button>
+
+                <RegisterModal
+                  open={open}
+                  onClose={() => setOpen(false)}
+                />
+                <br />
+                <Button
+                  component={Link}
+                  to="/login"
+                  onClick={() => setOpen2(true)}
+                  sx={{
+                    width: "100px", // Same width
+                    marginLeft: "3%",
+                    marginTop: "4%",
+                    marginBottom: "3%",
+                    backgroundColor: "brown",
+                    color: "white",
+                    paddingY: 0.5,
+                    // fontWeight: "bold",
+                    "&:hover": { backgroundColor: "#5d4037" },
+                  }}
+                >
+                  Log in
+                </Button>
+
+                <LoginModal
+                  open={open2}
+                  onClose={() => setOpen2(false)}
+                />
+                <Divider />
+                <MenuItem
+                  component={Link}
+                  to="/login"
+                  onClick={handleMenuClose}
+                >
+                  Airbnb your home
+                </MenuItem>
+                <MenuItem onClick={handleMenuClose}>
+                  Host an experience
+                </MenuItem>
+                <MenuItem onClick={handleMenuClose}>Help Centre</MenuItem>
+              </Menu>
+            </Box>
+          </Toolbar>
+
+          {/* Categories */}
+          <Box sx={{ borderBottom: 1, borderColor: "divider", px: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Tabs
+                value={categoryValue}
+                onChange={handleCategoryChange}
+                variant="scrollable"
+                scrollButtons="auto"
+                sx={{
+                  "& .MuiTabs-indicator": {
+                    backgroundColor: "#000",
+                    height: "2px",
+                  },
+                  flex: 1,
+                }}
+              >
+                {categories.map((category, index) => (
+                  <CategoryTab
+                    key={index}
+                    icon={category.icon}
+                    label={category.label}
+                    iconPosition="top"
+                  />
+                ))}
+              </Tabs>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  ml: 2,
+                  borderLeft: "1px solid #ddd",
+                  pl: 2,
+                }}
+              >
+                <Button
+                  startIcon={<TuneIcon />}
+                  sx={{
+                    border: "1px solid #ddd",
+                    borderRadius: "12px",
+                    textTransform: "none",
+                    px: 2,
+                  }}
+                >
+                  Filters
+                </Button>
+              </Box>
             </Box>
           </Box>
-        </Box>
         </Container>
       </AppBar>
 
@@ -437,13 +562,10 @@ const AirbnbHeader = () => {
             boxShadow: "0 0 10px rgba(0,0,0,0.1)",
             "&:hover": { bgcolor: "white" },
           }}
-        >
-         </IconButton>
+        ></IconButton>
       </Box>
-
     </Box>
- 
-  )
-}
+  );
+};
 
-export default AirbnbHeader
+export default AirbnbHeader;

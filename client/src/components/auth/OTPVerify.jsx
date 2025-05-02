@@ -1,10 +1,23 @@
-import { Box, TextField, Typography, Button } from "@mui/material";
+import React from "react";
+import {
+  Box,
+  TextField,
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+  Divider,
+  CircularProgress,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 import { useOtpVerify } from "../../hooks/useUser";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export const OTPVerify = () => {
+const OTPVerifyModal = ({ open, onClose }) => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const { mutate: verifyOtp, isPending } = useOtpVerify();
@@ -22,33 +35,74 @@ export const OTPVerify = () => {
   };
 
   return (
-    <Box maxWidth={400} mx="auto" mt={6}>
-      <Typography variant="h5" mb={2}>
-        Verify OTP
-      </Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          fullWidth
-          label="Email"
-          {...register("email", { required: true })}
-          margin="normal"
-        />
-        <TextField
-          fullWidth
-          label="OTP"
-          {...register("otp", { required: true })}
-          margin="normal"
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          fullWidth
-          sx={{ mt: 2 }}
-          disabled={isPending}
-        >
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="xs"
+      fullWidth
+      PaperProps={{
+        sx: {
+          borderRadius: 3,
+          p: 2,
+        },
+      }}
+    >
+      <DialogTitle sx={{ px: 3, pt: 3 }}>
+        <Typography variant="h6" fontWeight="bold">
           Verify OTP
-        </Button>
-      </form>
-    </Box>
+        </Typography>
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 16,
+            top: 16,
+            color: "grey.500",
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+
+      <Divider sx={{ mx: 3, mb: 2 }} />
+
+      <DialogContent sx={{ px: 3 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          display="flex"
+          flexDirection="column"
+          gap={2}
+        >
+          <TextField
+            fullWidth
+            label="Email"
+            {...register("email", { required: true })}
+          />
+          <TextField
+            fullWidth
+            label="OTP"
+            {...register("otp", { required: true })}
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{
+              mt: 2,
+              backgroundColor: "brown",
+              "&:hover": { backgroundColor: "#5d4037" },
+            }}
+            disabled={isPending}
+          >
+            {isPending ? <CircularProgress size={24} color="inherit" /> : "Verify OTP"}
+          </Button>
+        </Box>
+      </DialogContent>
+    </Dialog>
   );
 };
+
+export default OTPVerifyModal;
