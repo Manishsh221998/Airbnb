@@ -8,10 +8,15 @@ import {
 } from "../api/apiHandler";
 
 // Register User
-export const useRegister = (options) => {
+export const useRegister = () => {
   return useMutation({
-    mutationFn: register,
-    ...options,
+    mutationFn: (formData) => register(formData),
+    onSuccess: (data) => {
+      console.log('Registration successful', data);
+    },
+    onError: (error) => {
+      console.error('Registration failed', error.response?.data || error);
+    },
   });
 };
 

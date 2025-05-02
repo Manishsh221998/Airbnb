@@ -1,6 +1,6 @@
-const BASE_URL = "http://localhost:6001/api";
+export const BASE_URL = "http://localhost:6001/api";
 
-export const ENDPOINTS = {
+const ENDPOINTS = {
   // Auth
   REGISTER: "/user-register",
   OTP_VERIFY: "/otp-verify",
@@ -19,4 +19,4 @@ export const ENDPOINTS = {
   CREATE_BOOKING: "/booking",
 };
 
-export default BASE_URL;
+export default ENDPOINTS;

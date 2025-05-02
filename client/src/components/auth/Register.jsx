@@ -50,9 +50,10 @@ const RegisterModal = ({ open, onClose }) => {
       }}
     >
       <DialogTitle sx={{ px: 3, pt: 3 }}>
-        <Typography variant="h6" fontWeight="bold">
+        <Typography variant="h6" fontWeight="bold" component="span">
           Create an Account
         </Typography>
+
         <IconButton
           aria-label="close"
           onClick={onClose}
@@ -94,11 +95,7 @@ const RegisterModal = ({ open, onClose }) => {
             fullWidth
             {...formRegister("password", { required: true })}
           />
-          <TextField
-            label="Phone"
-            fullWidth
-            {...formRegister("phone")}
-          />
+          <TextField label="Phone" fullWidth {...formRegister("phone")} />
 
           <Button
             type="submit"
@@ -110,7 +107,11 @@ const RegisterModal = ({ open, onClose }) => {
             }}
             disabled={isPending}
           >
-            {isPending ? <CircularProgress size={24} color="inherit" /> : "Register"}
+            {isPending ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Register"
+            )}
           </Button>
 
           {isSuccess && (

@@ -433,10 +433,7 @@ const AirbnbHeader = () => {
                   Sign up
                 </Button>
 
-                <RegisterModal
-                  open={open}
-                  onClose={() => setOpen(false)}
-                />
+                <RegisterModal open={open} onClose={() => setOpen(false)} />
                 <br />
                 <Button
                   component={Link}
@@ -457,10 +454,7 @@ const AirbnbHeader = () => {
                   Log in
                 </Button>
 
-                <LoginModal
-                  open={open2}
-                  onClose={() => setOpen2(false)}
-                />
+                <LoginModal open={open2} onClose={() => setOpen2(false)} />
                 <Divider />
                 <MenuItem
                   component={Link}

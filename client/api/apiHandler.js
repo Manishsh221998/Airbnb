@@ -2,7 +2,13 @@ import axiosInstance from './axiosInstance';
 import ENDPOINTS from './endpoints';
 
 // Auth
-export const register = (data) => axiosInstance.post(ENDPOINTS.REGISTER, data);
+export const register = (data) => {
+  console.log("Sending to:", ENDPOINTS.REGISTER); // Should show "/user-register"
+  console.log("Payload:", data);
+  return axiosInstance.post(ENDPOINTS.REGISTER, data);
+};
+
+
 export const verifyOTP = (data) => axiosInstance.post(ENDPOINTS.OTP_VERIFY, data);
 export const login = (data) => axiosInstance.post(ENDPOINTS.LOGIN, data);
 export const sendResetPasswordLink = (data) => axiosInstance.post(ENDPOINTS.RESET_PASSWORD_LINK, data);
