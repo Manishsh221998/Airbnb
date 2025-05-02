@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRegister } from "../../hooks/useUser";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterModal = ({ open, onClose }) => {
   const navigate = useNavigate();
@@ -56,8 +56,8 @@ const RegisterModal = ({ open, onClose }) => {
       fullWidth
       PaperProps={{
         sx: {
-          borderRadius: 3,
-          p: 2,
+          borderRadius:7,
+          p: 3,
         },
       }}
     >
@@ -126,8 +126,10 @@ const RegisterModal = ({ open, onClose }) => {
             variant="contained"
             sx={{
               mt: 2,
-              backgroundColor: "brown",
-              "&:hover": { backgroundColor: "#5d4037" },
+              backgroundImage: "linear-gradient(45deg, #FF385C, #FF398B)",
+              "&:hover": {
+                backgroundImage: "linear-gradient(45deg, #FF386C, #FF385C)",
+              },
             }}
             disabled={isPending}
           >
@@ -137,6 +139,8 @@ const RegisterModal = ({ open, onClose }) => {
               "Register"
             )}
           </Button>
+         <Divider > <Link to="/" style={{textAlign:'center',color:'black',fontFamily:'serif'}}>Forgot Password</Link></Divider>
+          <Link to="/login" style={{textAlign:'center'}}>Already register? Login here</Link>
 
           {isSuccess && (
             <Typography color="success.main" mt={2} textAlign="center">

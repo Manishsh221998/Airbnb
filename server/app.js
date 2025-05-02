@@ -52,11 +52,16 @@ app.use(express.static("public"));
 app.use("uploads", express.static(path.join(__dirname, "/uploads")));
 app.use("/uploads", express.static("uploads"));
 
+//Hotel Listing /Property route
+const apiPropertyRouter=require('../server/app/router/apiPropertyRoute')
+app.use("/api",apiPropertyRouter);
+
 //router
 const adminRoute = require("./app/router/routing");
 app.use(adminRoute);
 
 app.use("/api", router);
+
 
 app.listen(process.env.PORT, () => {
   console.log("server is running on port", process.env.PORT);

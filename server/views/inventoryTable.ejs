@@ -78,8 +78,8 @@
             <!-- Inventory Table -->
             <div class="container mt-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h4 class="fw-semibold text-dark">Property Management</h4>
-                  <a href="/add-property" class="btn btn-primary shadow-sm">
+                  <p class="fw-semibold text-dark fs-2">Property Management</p>
+                  <a href="/add-property" class="btn btn-dark shadow-sm">
                     <i class="fas fa-plus me-1"></i> Add Property
                   </a>
                 </div>
@@ -99,7 +99,7 @@
                     <thead class="table-light">
                       <tr class="text-nowrap">
                         <th>No</th>
-                        <th>Title</th>
+                        <th>Property </th>
                         <th>Category</th>
                         <th>Room Type</th>
                         <th>Guests</th>
@@ -115,10 +115,10 @@
                       <% if (data.length > 0) { %>
                         <% data.forEach((property, idx) => { %>
                           <tr>
-                            <td class="text-center text-primary fw-bold">
+                            <td class="text-center fw-bold" style="color: rgb(5, 129, 143);">
                               <%= (currentPage - 1) * 10 + idx + 1 %>
                             </td>
-                            <td><%= property.title %></td>
+                            <td><%= property.propertyType %></td>
                             <td><%= property.category %></td>
                             <td><%= property.roomType %></td>
                             <td><%= property.capacity.guests %></td>

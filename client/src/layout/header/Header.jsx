@@ -416,45 +416,26 @@ const AirbnbHeader = () => {
                   sx: { mt: 1.5, width: 220, borderRadius: 2 },
                 }}
               >
-                <Button
+                <MenuItem
                   component={Link}
                   to="/regist"
                   onClick={() => setOpen(true)}
-                  sx={{
-                    width: "100px", // Adjust to your desired size
-                    marginLeft: "3%",
-                    backgroundColor: "brown",
-                    color: "white",
-                    paddingY: 0.5,
-                    // fontWeight: "bold",
-                    "&:hover": { backgroundColor: "#5d4037" },
-                  }}
+                 
                 >
                   Sign up
-                </Button>
+                </MenuItem>
 
-                <RegisterModal open={open} onClose={() => setOpen(false)} />
-                <br />
-                <Button
+                {/* <RegisterModal open={open} onClose={() => setOpen(false)} /> */}
+                 <MenuItem
                   component={Link}
                   to="/login"
                   onClick={() => setOpen2(true)}
-                  sx={{
-                    width: "100px", // Same width
-                    marginLeft: "3%",
-                    marginTop: "4%",
-                    marginBottom: "3%",
-                    backgroundColor: "brown",
-                    color: "white",
-                    paddingY: 0.5,
-                    // fontWeight: "bold",
-                    "&:hover": { backgroundColor: "#5d4037" },
-                  }}
+                 
                 >
                   Log in
-                </Button>
+                </MenuItem>
 
-                <LoginModal open={open2} onClose={() => setOpen2(false)} />
+                {/* <LoginModal open={open2} onClose={() => setOpen2(false)} /> */}
                 <Divider />
                 <MenuItem
                   component={Link}

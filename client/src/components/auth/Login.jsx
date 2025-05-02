@@ -14,7 +14,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 import { useLogin } from "../../hooks/useUser";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginModal = ({ open, onClose }) => {
   const { register, handleSubmit } = useForm();
@@ -43,7 +43,7 @@ const LoginModal = ({ open, onClose }) => {
       onClose={onClose}
       maxWidth="xs"
       fullWidth
-      PaperProps={{ sx: { borderRadius: 3, p: 2 } }}
+      PaperProps={{ sx: { borderRadius:7, p: 3 } }}
     >
       <DialogTitle sx={{ px: 3, pt: 3 }}>
         <Typography variant="h6" fontWeight="bold">
@@ -91,8 +91,10 @@ const LoginModal = ({ open, onClose }) => {
             variant="contained"
             sx={{
               mt: 2,
-              backgroundColor: "brown",
-              "&:hover": { backgroundColor: "#5d4037" },
+              backgroundImage: "linear-gradient(45deg, #FF385C, #FF398B)",
+              "&:hover": {
+                backgroundImage: "linear-gradient(45deg, #FF386C, #FF385C)",
+              },
             }}
             disabled={isPending}
           >
@@ -111,7 +113,7 @@ const LoginModal = ({ open, onClose }) => {
           )}
         </Box>
       </DialogContent>
-      <a href="/regist">create the account</a>
+      <Link to="/regist" style={{textAlign:'center'}}>create an account</Link>
     </Dialog>
   );
 };

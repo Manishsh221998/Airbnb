@@ -1,10 +1,11 @@
 import React from "react";
 import { stays } from "../../db/data";
+import { Container } from "@mui/material";
 
 const PlacesList = () => {
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
-      {stays.map((place, index) => (
+     <div style={{ display: "flex",justifyContent:'center', flexWrap: "wrap", gap: "25px",marginTop:'180px',marginBottom:'20px', }}>
+      {stays.slice(0,28).map((place, index) => (
         <div key={index} style={{ width: "180px" }}>
           <img
             src={place.image[0]} // Use the first image from the array
@@ -15,12 +16,15 @@ const PlacesList = () => {
               borderRadius: "10px",
             }}
           />
-          <h3>{place.title}</h3>
-          <p>{place.price}</p>
+<div className="" style={{marginTop:'5px'}}>
+          <h3 style={{fontWeight:500}}>{place.title}</h3>
+          <hr style={{color:'GrayText'}}/>
+          <p style={{marginTop:'2px'}}>{place.price}</p>
+          </div>
         </div>
       ))}
     </div>
-  );
+   );
 };
 
 export default PlacesList;
