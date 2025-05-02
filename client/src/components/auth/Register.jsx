@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   TextField,
@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 const RegisterModal = ({ open, onClose }) => {
   const navigate = useNavigate();
   const { register: formRegister, handleSubmit } = useForm();
+  const [image, setImage] = useState(null);
+
   const {
     mutate: registerUser,
     isPending,
@@ -27,13 +29,22 @@ const RegisterModal = ({ open, onClose }) => {
     error,
   } = useRegister({
     onSuccess: () => {
-      navigate("/otp-verify");
     },
   });
-
+  
   const onSubmit = (data) => {
-    console.log("Submitting register form with:", data);
-    registerUser(data);
+    const formData = new FormData();
+    
+    formData.append("username", data.username);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("phone", data.phone || "");
+    if (image) {
+      formData.append("image", image);
+    }
+    
+    registerUser(formData);
+    navigate("/otp-verify");
   };
 
   return (
@@ -95,7 +106,19 @@ const RegisterModal = ({ open, onClose }) => {
             fullWidth
             {...formRegister("password", { required: true })}
           />
-          <TextField label="Phone" fullWidth {...formRegister("phone")} />
+          <TextField
+            label="Phone"
+            fullWidth
+            {...formRegister("phone")}
+          />
+
+          {/* Image Upload Field */}
+          <TextField
+            type="file"
+            accept="image/*"
+            {...formRegister("image")}
+            onChange={(e) => setImage(e.target.files[0])}
+          />
 
           <Button
             type="submit"
