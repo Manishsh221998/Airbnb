@@ -2,9 +2,10 @@ const express = require("express");
 const AuthCheck = require("../middleware/authCheckFunction");
 const UserController = require("../controller/UserController");
 const BookingController = require("../controller/BookingController");
-  const router = express.Router();
+const UserImage = require("../helper/UserImage");
+const router = express.Router();
 
-router.post("/user-register", UserController.register);
+router.post("/user-register",UserImage.single('image'),UserController.register);
 router.post("/otp-verify", UserController.verify);
 router.post("/user-login", UserController.login);
 router.post("/reset-password-link", UserController.resetPasswordLink);

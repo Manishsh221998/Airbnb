@@ -43,9 +43,8 @@ import CastleIcon from "@mui/icons-material/Castle";
 import PublicIcon from "@mui/icons-material/Public";
 import ParkIcon from "@mui/icons-material/Park";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { Link } from "react-router-dom";
-import RegisterModal from "../../components/auth/Register";
-import LoginModal from "../../components/auth/Login";
+import { Link, useLocation } from "react-router-dom";
+ 
 
 // Logo component
 const Logo = styled("div")(({ theme }) => ({
@@ -117,12 +116,14 @@ const MobileSearchButton = styled(Button)(({ theme }) => ({
 }));
 
 const AirbnbHeader = () => {
-  const theme = useTheme();
+  const token=window.localStorage.getItem("usertoken")
+//  console.log("User token :",token)
+const location = useLocation();
+ 
+const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
-
+ 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [categoryValue, setCategoryValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -172,10 +173,11 @@ const AirbnbHeader = () => {
         <ListItem>
           <ListItemText primary="Log in" />
         </ListItem>
+
         <ListItem
           button
           component={Link}
-          to="/regist"
+          to="/register"
           onClick={handleDrawerToggle}
         >
           <ListItemText primary="Sign up" />
@@ -397,12 +399,14 @@ const AirbnbHeader = () => {
                 sx={{
                   border: "1px solid #ddd",
                   borderRadius: "40px",
-                  padding: "5px 5px 5px 12px",
-                  minWidth: "auto",
+                   py:'7px',
+                   paddingRight:"6px",
+                   paddingLeft:"14px",
+                   minWidth: "auto",
                 }}
               >
-                <MenuIcon fontSize="small" sx={{ mr: 1 }} />
-                <Avatar sx={{ width: 30, height: 30, bgcolor: "#717171" }}>
+                <MenuIcon fontSize="small" sx={{ mr: 1,color:'black' }} />
+                <Avatar sx={{ width: 28, height: 28, bgcolor: "#717171" }}>
                   <AccountCircleIcon fontSize="small" />
                 </Avatar>
               </Button>
@@ -416,27 +420,35 @@ const AirbnbHeader = () => {
                   sx: { mt: 1.5, width: 220, borderRadius: 2 },
                 }}
               >
+                {token? 
+                <MenuItem     
+                component={Link}
+                  to="/profile"
+                  onClick={handleMenuClose}
+                  >
+                  Profile
+                </MenuItem>:
+                <>
                 <MenuItem
                   component={Link}
-                  to="/regist"
-                  onClick={() => setOpen(true)}
-                 
+                  to="/register"
+                  onClick={handleMenuClose}
+
                 >
                   Sign up
                 </MenuItem>
-
-                {/* <RegisterModal open={open} onClose={() => setOpen(false)} /> */}
-                 <MenuItem
+            
+                  <MenuItem
                   component={Link}
                   to="/login"
-                  onClick={() => setOpen2(true)}
+                  onClick={handleMenuClose}
                  
                 >
                   Log in
                 </MenuItem>
-
-                {/* <LoginModal open={open2} onClose={() => setOpen2(false)} /> */}
-                <Divider />
+                </>
+  }
+                 <Divider />
                 <MenuItem
                   component={Link}
                   to="/login"
@@ -452,6 +464,8 @@ const AirbnbHeader = () => {
             </Box>
           </Toolbar>
 
+{location.pathname==='/profile'?null:
+<>
           {/* Categories */}
           <Box sx={{ borderBottom: 1, borderColor: "divider", px: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -500,6 +514,8 @@ const AirbnbHeader = () => {
               </Box>
             </Box>
           </Box>
+        </>
+        }
         </Container>
       </AppBar>
 

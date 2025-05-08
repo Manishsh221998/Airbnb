@@ -1,11 +1,11 @@
 import "./App.css";
 import Routing from "./routing/Routing";
-import Register from "./components/auth/Register";
-
+ import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
       <Routing />
+      <ToastContainer/>
     </>
   );
 }

@@ -14,38 +14,27 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRegister } from "../../hooks/useUser";
-import { Link, useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 const RegisterModal = ({ open, onClose }) => {
-  const navigate = useNavigate();
-  const { register: formRegister, handleSubmit } = useForm();
-  const [image, setImage] = useState(null);
-
+   const { register, handleSubmit } = useForm();
+ 
   const {
-    mutate: registerUser,
-    isPending,
-    isSuccess,
-    isError,
-    error,
-  } = useRegister({
-    onSuccess: () => {
-      navigate("/otp-verify");
-    },
-  });
+    mutate,isPending,isSuccess,isError, error} = useRegister();
   
   const onSubmit = (data) => {
     const formData = new FormData();
-    
+
     formData.append("username", data.username);
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("phone", data.phone || "");
-    if (image) {
-      formData.append("image", image);
+    
+    // Append image if it exists
+    if (data.image && data.image?.[0]) {
+      formData.append("image", data.image[0]);
     }
     
-    registerUser(formData);
-
+    mutate(formData);
   };
 
   return (
@@ -89,36 +78,36 @@ const RegisterModal = ({ open, onClose }) => {
           display="flex"
           flexDirection="column"
           gap={2}
+          encType="multipart/form-data" // Important for file uploads
         >
           <TextField
             label="Username"
             fullWidth
-            {...formRegister("username", { required: true })}
+            {...register("username", { required: true })}
           />
           <TextField
             label="Email"
             type="email"
             fullWidth
-            {...formRegister("email", { required: true })}
+            {...register("email", { required: true })}
           />
           <TextField
             label="Password"
             type="password"
             fullWidth
-            {...formRegister("password", { required: true })}
+            {...register("password", { required: true })}
           />
           <TextField
             label="Phone"
             fullWidth
-            {...formRegister("phone")}
+            {...register("phone")}
           />
 
           {/* Image Upload Field */}
           <TextField
             type="file"
             accept="image/*"
-            {...formRegister("image")}
-            onChange={(e) => setImage(e.target.files[0])}
+     {...register("image")}
           />
 
           <Button
@@ -139,7 +128,7 @@ const RegisterModal = ({ open, onClose }) => {
               "Register"
             )}
           </Button>
-         <Divider > <Link to="/" style={{textAlign:'center',color:'black',fontFamily:'serif'}}>Forgot Password</Link></Divider>
+          <Divider><Link to="/" style={{textAlign:'center',color:'black',fontFamily:'serif'}}>Forgot Password</Link></Divider>
           <Link to="/login" style={{textAlign:'center'}}>Already register? Login here</Link>
 
           {isSuccess && (

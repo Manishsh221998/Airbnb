@@ -15,35 +15,27 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 import { useLogin } from "../../hooks/useUser";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginModal = ({ open, onClose }) => {
+  
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate();
-
-  const {
-    mutate: loginUser,
-    isPending,
-    isSuccess,
-    isError,
-    error,
-  } = useLogin({
-    onSuccess: () => {
-      navigate("/dashboard");
-    },
-  });
+  const {mutate, isPending, isSuccess, isError, error} = useLogin();
 
   const onSubmit = (data) => {
     console.log(data);
-    loginUser(data);
+    mutate(data);
   };
-
+if(isError){
+  toast.error(error?.response?.data?.message,{autoClose:800})
+}
   return (
     <Dialog
       open={open}
       onClose={onClose}
       maxWidth="xs"
       fullWidth
-      PaperProps={{ sx: { borderRadius:7, p: 3 } }}
+      PaperProps={{ sx: { borderRadius:7, px:3,py:5 } }}
     >
       <DialogTitle sx={{ px: 3, pt: 3 }}>
         <Typography variant="h6" fontWeight="bold">
@@ -100,6 +92,7 @@ const LoginModal = ({ open, onClose }) => {
           >
             {isPending ? <CircularProgress size={24} color="inherit" /> : "Login"}
           </Button>
+          <Link to="/register" style={{textAlign:'center'}}>create an account</Link>
 
           {isSuccess && (
             <Typography color="success.main" mt={2}>
@@ -107,13 +100,12 @@ const LoginModal = ({ open, onClose }) => {
             </Typography>
           )}
           {isError && (
-            <Typography color="error.main" mt={2}>
+            <Typography color="error.main" textAlign="center" mt={2}>
               {error?.response?.data?.message || "Invalid credentials."}
             </Typography>
           )}
         </Box>
       </DialogContent>
-      <Link to="/regist" style={{textAlign:'center'}}>create an account</Link>
     </Dialog>
   );
 };

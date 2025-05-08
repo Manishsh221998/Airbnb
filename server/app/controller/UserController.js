@@ -7,6 +7,7 @@ const EmailVerificationModel = require("../model/otpModel");
 const User = require("../model/user");
 const jwt=require('jsonwebtoken')
 class UserController {
+  
   //------------- User Register ----------------
   async register(req, res) {
     // console.log(req.body)
@@ -37,6 +38,9 @@ class UserController {
         password: hashedPassword,
         phone,
       });
+      if(req.file){
+        data.image=req.file.path
+      }
 
       if (data) {
         const user = await data.save();
@@ -48,7 +52,7 @@ class UserController {
         });
       }
     } catch (error) {
-      console.log("Error-User register error :", error);
+      console.log("Error :User-register error :", error);
     }
   }
 

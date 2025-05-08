@@ -15,7 +15,7 @@ const ModalController = () => {
 
   return (
     <>
-      {location.pathname === "/regist" && (
+      {location.pathname === "/register" && (
         <RegisterModal open={true} onClose={handleClose} />
       )}
       {location.pathname === "/otp-verify" && (

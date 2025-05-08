@@ -25,7 +25,7 @@ const OTPVerifyModal = ({ open, onClose }) => {
   const onSubmit = (data) => {
     verifyOtp(data, {
       onSuccess: () => {
-        toast.success("OTP Verified! You can now log in.");
+        toast.success("OTP Verified! You can now log in.",{autoClose:600});
         navigate("/login");
       },
       onError: (err) => {
@@ -42,7 +42,7 @@ const OTPVerifyModal = ({ open, onClose }) => {
       fullWidth
       PaperProps={{
         sx: {
-          borderRadius: 3,
+          borderRadius:5,
           p: 2,
         },
       }}
@@ -92,8 +92,10 @@ const OTPVerifyModal = ({ open, onClose }) => {
             variant="contained"
             sx={{
               mt: 2,
-              backgroundColor: "brown",
-              "&:hover": { backgroundColor: "#5d4037" },
+              backgroundImage: "linear-gradient(45deg, #FF386C, #FF398B)",
+              "&:hover": {
+                backgroundImage: "linear-gradient(45deg, #FF386C, #FF385C)",
+              },
             }}
             disabled={isPending}
           >
