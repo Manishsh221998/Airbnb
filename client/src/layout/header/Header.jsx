@@ -43,7 +43,7 @@ import CastleIcon from "@mui/icons-material/Castle";
 import PublicIcon from "@mui/icons-material/Public";
 import ParkIcon from "@mui/icons-material/Park";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
  
 
 // Logo component
@@ -117,9 +117,27 @@ const MobileSearchButton = styled(Button)(({ theme }) => ({
 
 const AirbnbHeader = () => {
   const token=window.localStorage.getItem("usertoken")
+  const userImage=window.localStorage.getItem("userImage")
 //  console.log("User token :",token)
 const location = useLocation();
+const navigate=useNavigate()
+
+// const user=window.localStorage.getItem("userData")
+// const userData=JSON.parse(user)
+// console.log("User Data :",userData)
+
+const logout = () => {
+  try {
+    handleMenuClose();
+    window.localStorage.clear();
+  
+    setTimeout(()=>  navigate('/',{ replace: true }),1)
+  } catch (error) {
+    console.error('Navigation error:', error);
+  }
+};
  
+
 const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
@@ -288,6 +306,7 @@ const theme = useTheme();
         <Container maxWidth="xl">
           <Toolbar>
             {/* Logo */}
+            <Link to='/'>
             <Logo>
               <svg
                 width="30"
@@ -304,7 +323,7 @@ const theme = useTheme();
                 airbnb
               </Typography>
             </Logo>
-
+          </Link>
             {/* Desktop Navigation */}
             <Box
               sx={{
@@ -400,13 +419,13 @@ const theme = useTheme();
                   border: "1px solid #ddd",
                   borderRadius: "40px",
                    py:'7px',
-                   paddingRight:"6px",
+                   paddingRight:"7px",
                    paddingLeft:"14px",
                    minWidth: "auto",
                 }}
               >
                 <MenuIcon fontSize="small" sx={{ mr: 1,color:'black' }} />
-                <Avatar sx={{ width: 28, height: 28, bgcolor: "#717171" }}>
+                <Avatar sx={{ width: 31, height: 31, bgcolor: "#717171" }} src={`http://localhost:6001/${userImage}`}>
                   <AccountCircleIcon fontSize="small" />
                 </Avatar>
               </Button>
@@ -421,13 +440,22 @@ const theme = useTheme();
                 }}
               >
                 {token? 
-                <MenuItem     
+                <>
+                 <MenuItem     
                 component={Link}
                   to="/profile"
                   onClick={handleMenuClose}
                   >
                   Profile
-                </MenuItem>:
+                </MenuItem>
+                  {/* <MenuItem     
+                component={Link}
+                   onClick={logout}
+                  >
+                  Log out
+                </MenuItem> */}
+                </>
+                :
                 <>
                 <MenuItem
                   component={Link}
@@ -460,6 +488,16 @@ const theme = useTheme();
                   Host an experience
                 </MenuItem>
                 <MenuItem onClick={handleMenuClose}>Help Centre</MenuItem>
+                  {token? 
+                  <>
+                  <Divider />
+                  <MenuItem     
+                component={Link}
+                   onClick={logout}
+                  >
+                  Log out
+                </MenuItem>
+                </>:null}
               </Menu>
             </Box>
           </Toolbar>

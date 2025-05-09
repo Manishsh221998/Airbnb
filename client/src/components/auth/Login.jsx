@@ -92,7 +92,9 @@ if(isError){
           >
             {isPending ? <CircularProgress size={24} color="inherit" /> : "Login"}
           </Button>
-          <Link to="/register" style={{textAlign:'center'}}>create an account</Link>
+        <Divider><Link to="/" style={{textAlign:'center',color:'brown',fontFamily:'serif'}}>Forgot Password</Link></Divider>
+          
+          <Link to="/register" style={{textAlign:'center'}}>Create an account</Link>
 
           {isSuccess && (
             <Typography color="success.main" mt={2}>

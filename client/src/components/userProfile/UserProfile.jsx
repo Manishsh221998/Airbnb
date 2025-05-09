@@ -27,15 +27,30 @@ import {
   Hotel,
   Houseboat
 } from '@mui/icons-material';
+import CallIcon from '@mui/icons-material/Call';
+import EmailIcon from '@mui/icons-material/Email';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import { useProfile } from '../../hooks/useUser';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [value, setValue] = useState(0);
   const [favorite, setFavorite] = useState(false);
+  const navigate=useNavigate()
+
+   const userValue=JSON.parse(localStorage.getItem("userData"))
+// console.log("userValue",userValue)
+  const logout = () => {
+  try {
+     navigate('/');
+    window.localStorage.clear();
+  } catch (error) {
+    console.error('Navigation error:', error);
+  }
+};
 
   const{isPending, isSuccess, isError, error,data}=useProfile()
   // console.log("Profile Data :",data)
@@ -117,9 +132,10 @@ const UserProfile = () => {
     <Box sx={{ maxWidth: 1200, margin: '0 auto', p: isMobile ? 1 : 3 }}>
       {/* Header Section */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
+       <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
           Profile
         </Typography>
+      
         <IconButton>
           <Settings />
         </IconButton>
@@ -145,28 +161,27 @@ const UserProfile = () => {
               <Chip 
                 label="Verified" 
                 size="small" 
-                color="secondary" 
-                sx={{ fontSize: '0.7rem', height: 20 }} 
+                color="warning" 
+                sx={{ fontSize: '0.7rem', height: 20, boxShadow:2 }} 
               />
             )}
           </Box>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
-            {user.location} · {user.joined}
+            <EmailIcon sx={{fontSize:'19px',marginRight:"3px",marginBottom:'1px'}}/> Email | {userData?.email}
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-            <Star color="primary" fontSize="small" />
-            <Typography variant="body1">
-              {user.rating} ({user.reviews} reviews)
-            </Typography>
+             <Typography variant="body1">
+            <CallIcon sx={{fontSize:'18px',marginRight:"3px",marginBottom:'1px'}}/>
+              Contact | {userData?.phone}  
+             </Typography>
           </Box>
-          <Typography variant="body1" sx={{ mb: 2 }}>
-            {user.description}
-          </Typography>
+         
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Button 
               variant="contained" 
               startIcon={<LogoutIcon />}
               sx={{ borderRadius: 2 ,bgcolor:'black'}}
+              onClick={logout}
             >
                Logout
             </Button>
@@ -184,10 +199,21 @@ const UserProfile = () => {
 
       {/* Tabs Section */}
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
-        <Tabs value={value} onChange={handleChange} variant={isMobile ? 'scrollable' : 'fullWidth'}>
-          <Tab label="Listings" icon={isMobile ? <Home /> : null} />
-          <Tab label="Reviews" icon={isMobile ? <Star /> : null} />
-          <Tab label="About" icon={isMobile ? <Apartment /> : null} />
+        <Tabs value={value} sx={{
+    '& .MuiTabs-indicator': {
+      backgroundColor: 'red', // Changes the underline color
+    },
+    '& .MuiTab-root': {
+      color: 'black', // Changes the text color of inactive tabs
+    },
+    '& .Mui-selected': {
+      color:'crimson', // Changes the text color of the selected tab
+    },
+    color:'crimson'
+  }} onChange={handleChange} variant={isMobile ? 'scrollable' : 'fullWidth'}>
+          <Tab label="Wishlist"  icon={isMobile ? <Home /> : null} />
+          <Tab label="Bookings" icon={isMobile ? <Star /> : null} />
+          {/* <Tab label="About" icon={isMobile ? <Apartment /> : null} /> */}
         </Tabs>
       </Box>
 
