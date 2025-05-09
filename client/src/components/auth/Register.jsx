@@ -50,7 +50,7 @@ const RegisterModal = ({ open, onClose }) => {
         },
       }}
     >
-      <DialogTitle sx={{ px: 3, pt: 3 }}>
+      <DialogTitle sx={{ px: 6, pt: 3 }}>
         <Typography variant="h6" fontWeight="bold" component="span">
           Create an Account
         </Typography>
@@ -69,9 +69,9 @@ const RegisterModal = ({ open, onClose }) => {
         </IconButton>
       </DialogTitle>
 
-      <Divider sx={{ mx: 3, mb: 2 }} />
+      <Divider sx={{ mx: 6, mb: 2 }} />
 
-      <DialogContent sx={{ px: 3 }}>
+      <DialogContent sx={{ px:6}}>
         <Box
           component="form"
           onSubmit={handleSubmit(onSubmit)}
@@ -128,7 +128,6 @@ const RegisterModal = ({ open, onClose }) => {
               "Register"
             )}
           </Button>
-          <Divider><Link to="/" style={{textAlign:'center',color:'black',fontFamily:'serif'}}>Forgot Password</Link></Divider>
           <Link to="/login" style={{textAlign:'center'}}>Already register? Login here</Link>
 
           {isSuccess && (

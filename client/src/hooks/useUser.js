@@ -44,8 +44,14 @@ export const useLogin = () => {
       onSuccess: (data) => {
         console.log('Login successful', data);
         toast.success(data.data.message,{autoClose:700})
-        window.localStorage.setItem("usertoken",data.data.token)
-        navigate("/profile");  
+
+      //   const user={token:data.data.token,image:data.data.data.image}
+      //   const userSoftCopy = { ...user };
+      // window.localStorage.setItem("userData",JSON.stringify(userSoftCopy));
+
+      window.localStorage.setItem("usertoken",data.data.token);
+        window.localStorage.setItem("userImage", data?.data?.data?.image);
+        navigate("/");  
     }
     ,
     onError: (error) => {
@@ -63,10 +69,8 @@ export const useProfile = () => {
     queryFn: getProfile,
     onSuccess: (data) => {
       console.log('Welcome Profile', data);
-      toast.success(data.data.message,{autoClose:700})
-      window.localStorage.setItem("usertoken",data.data.token)
-      // navigate("/profile");  
-  }
+      toast.success(data.data.message,{autoClose:700});
+   }
    });
 };
 
